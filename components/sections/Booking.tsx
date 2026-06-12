@@ -9,6 +9,7 @@ import {
   IconPhone,
 } from "@/components/ui/icons";
 import { studio, treatments } from "@/lib/data";
+import { submitInquiry } from "@/app/actions/submit-inquiry";
 
 type FieldName = "name" | "email" | "phone" | "treatment" | "date" | "message";
 type Values = Record<FieldName, string>;
@@ -36,6 +37,7 @@ export function Booking() {
   const [status, setStatus] = useState<"idle" | "submitting" | "success">(
     "idle",
   );
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   function update(field: FieldName, value: string) {
     setValues((prev) => ({ ...prev, [field]: value }));
@@ -57,7 +59,7 @@ export function Booking() {
     return next;
   }
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const found = validate(values);
     setErrors(found);
@@ -70,18 +72,26 @@ export function Booking() {
       return;
     }
 
-    // Kurzer Lade-Zustand zur Simulation – noch keine echte Übertragung.
+    setSubmitError(null);
     setStatus("submitting");
-    window.setTimeout(() => {
-      /* TODO: Anbindung (Webhook/Buchung) folgt in späterem Schritt.
-         Hier später die echte Übermittlung von `values` einsetzen. */
+
+    // Echte Übermittlung an Supabase (Tabelle `inquiries`) via Server Action.
+    // E-Mail-Versand / AI-Auto-Antwort (n8n + Claude Haiku) folgen später.
+    const result = await submitInquiry(values);
+    if (result.ok) {
       setStatus("success");
-    }, 1200);
+    } else {
+      setStatus("idle");
+      setSubmitError(
+        "Es gab ein Problem beim Senden. Bitte versuchen Sie es erneut oder rufen Sie uns telefonisch an.",
+      );
+    }
   }
 
   function reset() {
     setValues(emptyValues);
     setErrors({});
+    setSubmitError(null);
     setStatus("idle");
   }
 
@@ -330,6 +340,15 @@ export function Booking() {
                     "Anfrage senden"
                   )}
                 </button>
+
+                {submitError && (
+                  <p
+                    role="alert"
+                    className="mt-3 text-center text-sm text-[#a23b30]"
+                  >
+                    {submitError}
+                  </p>
+                )}
 
                 <p className="mt-4 text-center text-xs leading-relaxed text-muted">
                   Mit dem Absenden stimmen Sie der Verarbeitung Ihrer Angaben zur
