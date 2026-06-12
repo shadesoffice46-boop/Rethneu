@@ -38,6 +38,8 @@ export function Booking() {
     "idle",
   );
   const [submitError, setSubmitError] = useState<string | null>(null);
+  // Honeypot: für Menschen unsichtbar, nur Bots füllen es aus.
+  const [honeypot, setHoneypot] = useState("");
 
   function update(field: FieldName, value: string) {
     setValues((prev) => ({ ...prev, [field]: value }));
@@ -75,15 +77,15 @@ export function Booking() {
     setSubmitError(null);
     setStatus("submitting");
 
-    // Echte Übermittlung an Supabase (Tabelle `inquiries`) via Server Action.
-    // E-Mail-Versand / AI-Auto-Antwort (n8n + Claude Haiku) folgen später.
-    const result = await submitInquiry(values);
+    // Echte Übermittlung an Supabase via Server Action (inkl. Honeypot).
+    const result = await submitInquiry({ ...values, company: honeypot });
     if (result.ok) {
       setStatus("success");
     } else {
       setStatus("idle");
       setSubmitError(
-        "Es gab ein Problem beim Senden. Bitte versuchen Sie es erneut oder rufen Sie uns telefonisch an.",
+        result.error ||
+          "Es gab ein Problem beim Senden. Bitte versuchen Sie es erneut oder rufen Sie uns telefonisch an.",
       );
     }
   }
@@ -196,6 +198,31 @@ export function Booking() {
               </div>
             ) : (
               <form onSubmit={handleSubmit} noValidate>
+                {/* Honeypot gegen Bots: für Menschen unsichtbar & nicht fokussierbar */}
+                <div
+                  aria-hidden="true"
+                  style={{
+                    position: "absolute",
+                    width: 1,
+                    height: 1,
+                    padding: 0,
+                    margin: -1,
+                    overflow: "hidden",
+                    clipPath: "inset(50%)",
+                    border: 0,
+                  }}
+                >
+                  <label htmlFor="company">Firma (bitte frei lassen)</label>
+                  <input
+                    id="company"
+                    name="company"
+                    type="text"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    value={honeypot}
+                    onChange={(e) => setHoneypot(e.target.value)}
+                  />
+                </div>
                 <div className="grid gap-5 sm:grid-cols-2">
                   <Field
                     id="booking-name"
@@ -318,6 +345,7 @@ export function Booking() {
                         id="booking-message"
                         name="message"
                         rows={4}
+                        maxLength={2000}
                         value={values.message}
                         onChange={(e) => update("message", e.target.value)}
                         className={`${inputClasses} resize-none border-ink/15`}
