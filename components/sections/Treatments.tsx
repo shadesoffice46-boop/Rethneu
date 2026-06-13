@@ -1,5 +1,6 @@
 import { Reveal } from "@/components/ui/Reveal";
 import { TreatmentIcon } from "@/components/ui/icons";
+import { BookButton } from "@/components/ui/BookButton";
 import { treatments } from "@/lib/data";
 
 /*
@@ -63,6 +64,17 @@ export function Treatments() {
                     {t.price}
                   </span>
                 </div>
+
+                <BookButton
+                  calSlug={t.calSlug}
+                  className={`mt-4 inline-flex w-full items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium tracking-wide transition-all duration-300 ease-out focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lavender-700 ${
+                    t.featured
+                      ? "bg-lavender-700 text-white hover:bg-[#4d3b6e]"
+                      : "border border-olive-500/45 text-olive-700 hover:bg-olive-100 hover:border-olive-500/70"
+                  }`}
+                >
+                  Termin buchen
+                </BookButton>
               </article>
             </Reveal>
           ))}
@@ -70,8 +82,8 @@ export function Treatments() {
 
         <Reveal>
           <p className="mt-8 text-sm text-muted">
-            Alle Preise sind Richtwerte. Gern beraten wir Sie persönlich zur
-            passenden Behandlung und Dauer.
+            Online buchbar – Dauer und freien Termin wählen Sie direkt aus. Alle
+            Preise sind Richtwerte; bezahlt wird bequem vor Ort.
           </p>
         </Reveal>
       </div>
