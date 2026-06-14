@@ -10,6 +10,10 @@ export type InquiryInput = {
   phone?: string;
   treatment: string;
   date?: string;
+  /** Gewünschte Dauer in Minuten (als String aus dem Select). */
+  duration?: string;
+  /** Wunschuhrzeit "HH:MM". */
+  time?: string;
   message?: string;
   /** Honeypot – muss leer bleiben; nur Bots füllen es aus. */
   company?: string;
@@ -73,6 +77,19 @@ export async function submitInquiry(
     return { ok: false, error: "Eine Ihrer Eingaben ist zu lang." };
   }
 
+  // 3b) Dauer & Uhrzeit (optional – wenn gesetzt, müssen sie plausibel sein)
+  const durationMin = input.duration ? Number(input.duration) : null;
+  if (
+    durationMin !== null &&
+    (!Number.isInteger(durationMin) || durationMin < 15 || durationMin > 240)
+  ) {
+    return { ok: false, error: "Bitte wählen Sie eine gültige Dauer." };
+  }
+  const time = input.time?.trim() || null;
+  if (time && !/^\d{2}:\d{2}$/.test(time)) {
+    return { ok: false, error: "Bitte wählen Sie eine gültige Uhrzeit." };
+  }
+
   const supabase = await createClient();
   const ip_hash = await clientIpHash();
 
@@ -82,6 +99,8 @@ export async function submitInquiry(
     phone: input.phone?.trim() || null,
     behandlung: treatment,
     wunschdatum: input.date || null,
+    wunschzeit: time,
+    dauer_min: durationMin,
     nachricht: input.message?.trim() || null,
     ip_hash,
   });

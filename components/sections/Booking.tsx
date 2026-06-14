@@ -11,7 +11,15 @@ import {
 import { studio, treatments } from "@/lib/data";
 import { submitInquiry } from "@/app/actions/submit-inquiry";
 
-type FieldName = "name" | "email" | "phone" | "treatment" | "date" | "message";
+type FieldName =
+  | "name"
+  | "email"
+  | "phone"
+  | "treatment"
+  | "duration"
+  | "date"
+  | "time"
+  | "message";
 type Values = Record<FieldName, string>;
 type Errors = Partial<Record<FieldName, string>>;
 
@@ -20,7 +28,9 @@ const emptyValues: Values = {
   email: "",
   phone: "",
   treatment: "",
+  duration: "",
   date: "",
+  time: "",
   message: "",
 };
 
@@ -30,6 +40,34 @@ const inputClasses =
   "focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-lavender-700";
 
 const errorText = "text-[#a23b30]"; // ausreichender Kontrast auf Weiß
+
+/* --------------------------- Öffnungszeiten-Logik --------------------------- */
+// Minuten ab Mitternacht. Mo–Fr 10–19, Sa 10–18, So geschlossen.
+function hoursForDate(dateStr: string): { open: number; close: number } | null {
+  if (!dateStr) return null;
+  const d = new Date(`${dateStr}T00:00:00`);
+  if (Number.isNaN(d.getTime())) return null;
+  const day = d.getDay(); // 0 = Sonntag, 6 = Samstag
+  if (day === 0) return null;
+  if (day === 6) return { open: 600, close: 1080 };
+  return { open: 600, close: 1140 };
+}
+
+function minutesToLabel(min: number): string {
+  const h = Math.floor(min / 60);
+  const m = min % 60;
+  return `${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")}`;
+}
+
+// Mögliche Startzeiten (30-Min-Schritte), so dass die Behandlung bis Ladenschluss passt.
+function timeOptionsFor(dateStr: string, durationMin: number): string[] {
+  const h = hoursForDate(dateStr);
+  if (!h) return [];
+  const last = h.close - (durationMin > 0 ? durationMin : 30);
+  const out: string[] = [];
+  for (let m = h.open; m <= last; m += 30) out.push(minutesToLabel(m));
+  return out;
+}
 
 export function Booking() {
   const [values, setValues] = useState<Values>(emptyValues);
@@ -41,12 +79,46 @@ export function Booking() {
   // Honeypot: für Menschen unsichtbar, nur Bots füllen es aus.
   const [honeypot, setHoneypot] = useState("");
 
+  // Abgeleitete Werte (während des Renderns berechnet, kein useEffect nötig).
+  const selectedTreatment = treatments.find((t) => t.name === values.treatment);
+  const durationOptions = selectedTreatment?.durations ?? [];
+  const hasBookableTreatment = durationOptions.length > 0;
+  const durationMin =
+    Number(values.duration) || durationOptions[0]?.min || 30;
+  const dateChosen = values.date !== "";
+  const dayClosed = dateChosen && hoursForDate(values.date) === null;
+  const times = timeOptionsFor(values.date, durationMin);
+
+  function clearError(field: FieldName) {
+    if (errors[field]) setErrors((prev) => ({ ...prev, [field]: undefined }));
+  }
+
   function update(field: FieldName, value: string) {
     setValues((prev) => ({ ...prev, [field]: value }));
-    // Fehler beim Tippen entfernen, sobald das Feld wieder befüllt wird.
-    if (errors[field]) {
-      setErrors((prev) => ({ ...prev, [field]: undefined }));
-    }
+    clearError(field);
+  }
+
+  // Behandlung wechseln → passende Standard-Dauer setzen, Uhrzeit zurücksetzen.
+  function changeTreatment(name: string) {
+    const t = treatments.find((x) => x.name === name);
+    const firstDuration = t?.durations?.[0]?.min;
+    setValues((prev) => ({
+      ...prev,
+      treatment: name,
+      duration: firstDuration ? String(firstDuration) : "",
+      time: "",
+    }));
+    clearError("treatment");
+  }
+
+  // Datum/Dauer ändern → Uhrzeit zurücksetzen, da sich die Optionen ändern.
+  function changeDate(value: string) {
+    setValues((prev) => ({ ...prev, date: value, time: "" }));
+    clearError("date");
+  }
+
+  function changeDuration(value: string) {
+    setValues((prev) => ({ ...prev, duration: value, time: "" }));
   }
 
   function validate(v: Values): Errors {
@@ -58,6 +130,12 @@ export function Booking() {
       next.email = "Diese E-Mail-Adresse sieht nicht gültig aus.";
     }
     if (!v.treatment) next.treatment = "Bitte wählen Sie eine Behandlung.";
+    if (v.date && hoursForDate(v.date) === null) {
+      next.date = "Sonntags geschlossen – bitte einen anderen Tag wählen.";
+    }
+    if (v.date && hoursForDate(v.date) && !v.time) {
+      next.time = "Bitte wählen Sie eine Uhrzeit.";
+    }
     return next;
   }
 
@@ -67,7 +145,7 @@ export function Booking() {
     setErrors(found);
 
     const firstError = (
-      ["name", "email", "treatment"] as FieldName[]
+      ["name", "email", "treatment", "date", "time"] as FieldName[]
     ).find((f) => found[f]);
     if (firstError) {
       document.getElementById(`booking-${firstError}`)?.focus();
@@ -107,8 +185,9 @@ export function Booking() {
           </span>
           <h2 className="mt-3 text-4xl md:text-5xl">Termin anfragen</h2>
           <p className="mt-5 max-w-md text-lg leading-relaxed text-muted">
-            Schreiben Sie uns kurz, was Sie sich wünschen. Wir melden uns
-            zeitnah und finden gemeinsam einen passenden Termin.
+            Wählen Sie Behandlung, Dauer und Wunschzeit – wir bestätigen Ihren
+            Termin verbindlich per E-Mail. Lieber sofort sehen, was frei ist?
+            Nutzen Sie die „Termin buchen"-Buttons bei den Behandlungen.
           </p>
 
           <dl className="mt-10 space-y-5">
@@ -186,7 +265,7 @@ export function Booking() {
                 <h3 className="mt-6 text-2xl">Vielen Dank!</h3>
                 <p className="mt-3 max-w-sm leading-relaxed text-muted">
                   Wir haben Ihre Anfrage erhalten und melden uns zeitnah bei
-                  Ihnen.
+                  Ihnen – in der Regel mit einer Terminbestätigung per E-Mail.
                 </p>
                 <button
                   type="button"
@@ -223,6 +302,7 @@ export function Booking() {
                     onChange={(e) => setHoneypot(e.target.value)}
                   />
                 </div>
+
                 <div className="grid gap-5 sm:grid-cols-2">
                   <Field
                     id="booking-name"
@@ -272,29 +352,6 @@ export function Booking() {
                     />
                   </Field>
 
-                  <Field id="booking-phone" label="Telefon">
-                    <input
-                      id="booking-phone"
-                      name="phone"
-                      type="tel"
-                      autoComplete="tel"
-                      value={values.phone}
-                      onChange={(e) => update("phone", e.target.value)}
-                      className={`${inputClasses} border-ink/15`}
-                    />
-                  </Field>
-
-                  <Field id="booking-date" label="Wunschdatum">
-                    <input
-                      id="booking-date"
-                      name="date"
-                      type="date"
-                      value={values.date}
-                      onChange={(e) => update("date", e.target.value)}
-                      className={`${inputClasses} border-ink/15`}
-                    />
-                  </Field>
-
                   <div className="sm:col-span-2">
                     <Field
                       id="booking-treatment"
@@ -306,7 +363,7 @@ export function Booking() {
                         id="booking-treatment"
                         name="treatment"
                         value={values.treatment}
-                        onChange={(e) => update("treatment", e.target.value)}
+                        onChange={(e) => changeTreatment(e.target.value)}
                         aria-required
                         aria-invalid={!!errors.treatment}
                         aria-describedby={
@@ -335,6 +392,97 @@ export function Booking() {
                     </Field>
                   </div>
 
+                  {hasBookableTreatment && (
+                    <div className="sm:col-span-2">
+                      <Field id="booking-duration" label="Dauer">
+                        <select
+                          id="booking-duration"
+                          name="duration"
+                          value={values.duration}
+                          onChange={(e) => changeDuration(e.target.value)}
+                          className={`${inputClasses} border-ink/15 cursor-pointer`}
+                        >
+                          {durationOptions.map((d) => (
+                            <option key={d.min} value={String(d.min)}>
+                              {d.min} Min. – {d.price} €
+                            </option>
+                          ))}
+                        </select>
+                      </Field>
+                    </div>
+                  )}
+
+                  <Field
+                    id="booking-date"
+                    label="Wunschdatum"
+                    hint="optional"
+                    error={errors.date}
+                  >
+                    <input
+                      id="booking-date"
+                      name="date"
+                      type="date"
+                      value={values.date}
+                      onChange={(e) => changeDate(e.target.value)}
+                      aria-invalid={!!errors.date}
+                      aria-describedby={
+                        errors.date ? "booking-date-error" : undefined
+                      }
+                      className={`${inputClasses} ${
+                        errors.date ? "border-[#a23b30]" : "border-ink/15"
+                      }`}
+                    />
+                  </Field>
+
+                  <Field
+                    id="booking-time"
+                    label="Wunschuhrzeit"
+                    hint="optional"
+                    error={errors.time}
+                  >
+                    <select
+                      id="booking-time"
+                      name="time"
+                      value={values.time}
+                      onChange={(e) => update("time", e.target.value)}
+                      disabled={!dateChosen || dayClosed}
+                      aria-invalid={!!errors.time}
+                      aria-describedby={
+                        errors.time ? "booking-time-error" : undefined
+                      }
+                      className={`${inputClasses} ${
+                        errors.time ? "border-[#a23b30]" : "border-ink/15"
+                      } cursor-pointer disabled:cursor-not-allowed disabled:bg-ink/5`}
+                    >
+                      <option value="">
+                        {!dateChosen
+                          ? "Erst Datum wählen"
+                          : dayClosed
+                            ? "Sonntags geschlossen"
+                            : "Uhrzeit wählen …"}
+                      </option>
+                      {times.map((t) => (
+                        <option key={t} value={t}>
+                          {t} Uhr
+                        </option>
+                      ))}
+                    </select>
+                  </Field>
+
+                  <div className="sm:col-span-2">
+                    <Field id="booking-phone" label="Telefon" hint="optional">
+                      <input
+                        id="booking-phone"
+                        name="phone"
+                        type="tel"
+                        autoComplete="tel"
+                        value={values.phone}
+                        onChange={(e) => update("phone", e.target.value)}
+                        className={`${inputClasses} border-ink/15`}
+                      />
+                    </Field>
+                  </div>
+
                   <div className="sm:col-span-2">
                     <Field
                       id="booking-message"
@@ -348,6 +496,7 @@ export function Booking() {
                         maxLength={2000}
                         value={values.message}
                         onChange={(e) => update("message", e.target.value)}
+                        placeholder="Sonderwünsche, Fragen oder gewünschte Zone (z. B. bei Haarentfernung) …"
                         className={`${inputClasses} resize-none border-ink/15`}
                       />
                     </Field>
