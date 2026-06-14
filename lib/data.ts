@@ -53,6 +53,9 @@ export const navLinks = [
 
 /* ------------------------------- Behandlungen ------------------------------- */
 
+/** Eine buchbare Dauer-Option (Minuten + Preis in €), 1:1 mit Cal.com. */
+export type DurationOption = { min: number; price: number };
+
 export type Treatment = {
   slug: string;
   /** Cal.com-Event-Typ-Slug für die Online-Buchung. */
@@ -61,6 +64,11 @@ export type Treatment = {
   description: string;
   duration: string;
   price: string;
+  /**
+   * Buchbare Dauern + Preise (1:1 mit den Cal.com-Event-Typen).
+   * Treibt das Dauer-Dropdown im Kontaktformular und die Slot-Suche in n8n.
+   */
+  durations: DurationOption[];
   /** Kennzeichnet die Signatur-Behandlung für eine hervorgehobene Karte. */
   featured?: boolean;
   icon: "lotus" | "drop" | "stones" | "back" | "face" | "hands";
@@ -75,6 +83,12 @@ export const treatments: Treatment[] = [
       "Akupressur und sanfte Dehnungen entlang der Energielinien lösen Verspannungen und bringen Körper und Geist ins Gleichgewicht.",
     duration: "30 – 120 Min.",
     price: "30 – 90 €",
+    durations: [
+      { min: 30, price: 30 },
+      { min: 60, price: 50 },
+      { min: 90, price: 70 },
+      { min: 120, price: 90 },
+    ],
     featured: true,
     icon: "lotus",
   },
@@ -86,6 +100,12 @@ export const treatments: Treatment[] = [
       "Warme, duftende Öle und fließende Streichungen für tiefe Entspannung und ein gepflegtes Hautgefühl.",
     duration: "30 – 120 Min.",
     price: "30 – 90 €",
+    durations: [
+      { min: 30, price: 30 },
+      { min: 60, price: 50 },
+      { min: 90, price: 70 },
+      { min: 120, price: 90 },
+    ],
     icon: "drop",
   },
   {
@@ -96,6 +116,12 @@ export const treatments: Treatment[] = [
       "Erwärmte Basaltsteine geben wohlige Wärme tief ins Gewebe und lösen auch hartnäckige Verspannungen.",
     duration: "30 – 120 Min.",
     price: "30 – 90 €",
+    durations: [
+      { min: 30, price: 30 },
+      { min: 60, price: 50 },
+      { min: 90, price: 70 },
+      { min: 120, price: 90 },
+    ],
     icon: "stones",
   },
   {
@@ -106,6 +132,12 @@ export const treatments: Treatment[] = [
       "Gezielte Behandlung für alle, die viel sitzen: Fokus auf Rücken, Nacken und Kopf.",
     duration: "30 – 120 Min.",
     price: "30 – 90 €",
+    durations: [
+      { min: 30, price: 30 },
+      { min: 60, price: 50 },
+      { min: 90, price: 70 },
+      { min: 120, price: 90 },
+    ],
     icon: "back",
   },
   {
@@ -116,6 +148,10 @@ export const treatments: Treatment[] = [
       "Wohltuende Fußmassage – Druckpunkte an den Füßen schenken dem ganzen Körper neue Leichtigkeit.",
     duration: "30 / 60 Min.",
     price: "28 / 45 €",
+    durations: [
+      { min: 30, price: 28 },
+      { min: 60, price: 45 },
+    ],
     icon: "lotus",
   },
   {
@@ -126,6 +162,12 @@ export const treatments: Treatment[] = [
       "Sanfte Entspannungsmassage, die Körper und Geist zur Ruhe kommen lässt.",
     duration: "30 – 120 Min.",
     price: "30 – 90 €",
+    durations: [
+      { min: 30, price: 30 },
+      { min: 60, price: 50 },
+      { min: 90, price: 70 },
+      { min: 120, price: 90 },
+    ],
     icon: "drop",
   },
   {
@@ -136,6 +178,11 @@ export const treatments: Treatment[] = [
       "Traditionelle Thai-Massage mit warmen Kräuterstempeln für intensive, wohltuende Wärme.",
     duration: "60 – 120 Min.",
     price: "60 – 110 €",
+    durations: [
+      { min: 60, price: 60 },
+      { min: 90, price: 85 },
+      { min: 120, price: 110 },
+    ],
     icon: "stones",
   },
   {
@@ -146,6 +193,11 @@ export const treatments: Treatment[] = [
       "Reinigung, Peeling, Massage, Aloe-Pflegepackung und Tagespflege – individuell auf Ihre Haut abgestimmt.",
     duration: "30 – 90 Min.",
     price: "30 – 70 €",
+    durations: [
+      { min: 30, price: 30 },
+      { min: 60, price: 50 },
+      { min: 90, price: 70 },
+    ],
     icon: "face",
   },
   {
@@ -156,6 +208,11 @@ export const treatments: Treatment[] = [
       "Körperpeeling und anschließende Öl-Massage für streichelzarte, gepflegte Haut.",
     duration: "60 – 120 Min.",
     price: "50 – 90 €",
+    durations: [
+      { min: 60, price: 50 },
+      { min: 90, price: 70 },
+      { min: 120, price: 90 },
+    ],
     icon: "hands",
   },
   {
@@ -166,6 +223,7 @@ export const treatments: Treatment[] = [
       "Luxus-Spa-Maniküre für Damen und Herren, inkl. Kurzmassage – auf Wunsch mit farbigem Nagellack.",
     duration: "ca. 30 Min.",
     price: "15 – 20 €",
+    durations: [{ min: 30, price: 15 }],
     icon: "hands",
   },
   {
@@ -176,6 +234,7 @@ export const treatments: Treatment[] = [
       "Luxus-Spa-Pediküre mit Fußbad, Hornhautentfernung und Fußmassage – auf Wunsch mit Shellac.",
     duration: "ca. 45 Min.",
     price: "30 – 40 €",
+    durations: [{ min: 45, price: 30 }],
     icon: "hands",
   },
   {
@@ -186,6 +245,7 @@ export const treatments: Treatment[] = [
       "Sanfte Haarentfernung mit Warmwachs für viele Körperzonen – gewünschte Zone einfach bei der Buchung angeben.",
     duration: "ab 15 Min.",
     price: "15 – 40 €",
+    durations: [{ min: 30, price: 15 }],
     icon: "drop",
   },
   {
@@ -196,6 +256,7 @@ export const treatments: Treatment[] = [
       "Wimpernlifting, Wimpern- und Augenbrauenfärben sowie Augenbrauen zupfen für einen wachen Blick.",
     duration: "ca. 60 Min.",
     price: "10 – 40 €",
+    durations: [{ min: 60, price: 40 }],
     icon: "face",
   },
 ];
