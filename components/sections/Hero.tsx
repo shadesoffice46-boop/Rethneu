@@ -57,7 +57,7 @@ export function Hero() {
             <span className="font-display italic text-lavender-700">
               Auszeit
             </span>{" "}
-            für Körper und Sinne.
+            für Körper, Geist und Sinne.
           </motion.h1>
 
           <motion.p
