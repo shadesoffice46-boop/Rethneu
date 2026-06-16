@@ -9,9 +9,14 @@ export const metadata: Metadata = {
 };
 
 /*
-  Stub-Seite. Die Inhalte sind Platzhalter und muessen rechtssicher ausgefuellt
-  werden (Angaben gemaess § 5 TMG / § 18 MStV).
-  TODO: Mit echten Angaben des Studios und ggf. anwaltlicher Pruefung fuellen.
+  Impressum nach § 5 DDG (seit 14.05.2024; löst § 5 TMG ab) + § 18 Abs. 2 MStV.
+
+  OFFENE PUNKTE vor Go-Live (siehe Obsidian „Rechtliche Umsetzung“):
+  - E-Mail: studio.email ist aktuell ein Platzhalter (info@…). Vor Livegang muss
+    hier eine ECHTE, regelmäßig abgerufene Adresse stehen (Impressum-Pflicht).
+  - USt-IdNr.: bewusst weggelassen. Falls eine USt-IdNr. vorliegt, unten ergänzen.
+    Als Kleinunternehmerin (§ 19 UStG) bleibt der Block korrekterweise leer –
+    NICHT die Steuernummer eintragen.
 */
 export default function ImpressumPage() {
   return (
@@ -27,14 +32,17 @@ export default function ImpressumPage() {
 
       <div className="mt-10 space-y-8 text-ink/90">
         <section>
-          <h2 className="text-xl font-semibold">Angaben gemäß § 5 TMG</h2>
+          <h2 className="text-xl font-semibold">Angaben gemäß § 5 DDG</h2>
           <p className="mt-3 leading-relaxed text-muted">
-            {/* TODO: Vollständige Anbieterangaben eintragen */}
+            {studio.owner}
+            <br />
             {studio.name}
             <br />
             {studio.address.street}
             <br />
             {studio.address.city}
+            <br />
+            Deutschland
           </p>
         </section>
 
@@ -43,25 +51,76 @@ export default function ImpressumPage() {
           <p className="mt-3 leading-relaxed text-muted">
             Telefon: {studio.phoneDisplay}
             <br />
-            {/* TODO: Echte E-Mail bestätigen */}
-            E-Mail: {studio.email}
+            Mobil: {studio.mobileDisplay}
+            <br />
+            E-Mail:{" "}
+            <a
+              href={`mailto:${studio.email}`}
+              className="text-lavender-700 underline-offset-4 hover:underline"
+            >
+              {studio.email}
+            </a>
           </p>
         </section>
 
         <section>
           <h2 className="text-xl font-semibold">
-            Umsatzsteuer / Verantwortlichkeit
+            Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV
           </h2>
           <p className="mt-3 leading-relaxed text-muted">
-            {/* TODO: USt-IdNr., Berufsbezeichnung und inhaltlich Verantwortlichen
-                gemäß § 18 Abs. 2 MStV ergänzen. */}
-            Diese Angaben werden derzeit vervollständigt.
+            {studio.owner}
+            <br />
+            Anschrift wie oben.
+          </p>
+        </section>
+
+        <section>
+          <h2 className="text-xl font-semibold">
+            Verbraucherstreitbeilegung / Universalschlichtungsstelle
+          </h2>
+          <p className="mt-3 leading-relaxed text-muted">
+            Wir sind nicht bereit und nicht verpflichtet, an Streitbeilegungs&shy;verfahren
+            vor einer Verbraucherschlichtungsstelle teilzunehmen.
+          </p>
+        </section>
+
+        <section>
+          <h2 className="text-xl font-semibold">Haftung für Inhalte</h2>
+          <p className="mt-3 leading-relaxed text-muted">
+            Die Inhalte dieser Seiten wurden mit größter Sorgfalt erstellt. Für
+            die Richtigkeit, Vollständigkeit und Aktualität der Inhalte können
+            wir jedoch keine Gewähr übernehmen. Als Diensteanbieter sind wir
+            gemäß § 7 Abs. 1 DDG für eigene Inhalte auf diesen Seiten nach den
+            allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 DDG sind wir
+            als Diensteanbieter jedoch nicht verpflichtet, übermittelte oder
+            gespeicherte fremde Informationen zu überwachen.
+          </p>
+        </section>
+
+        <section>
+          <h2 className="text-xl font-semibold">Haftung für Links</h2>
+          <p className="mt-3 leading-relaxed text-muted">
+            Unser Angebot enthält ggf. Links zu externen Websites Dritter, auf
+            deren Inhalte wir keinen Einfluss haben. Deshalb können wir für diese
+            fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte der
+            verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der
+            Seiten verantwortlich.
+          </p>
+        </section>
+
+        <section>
+          <h2 className="text-xl font-semibold">Urheberrecht</h2>
+          <p className="mt-3 leading-relaxed text-muted">
+            Die durch die Seitenbetreiberin erstellten Inhalte und Werke auf
+            diesen Seiten unterliegen dem deutschen Urheberrecht. Beiträge
+            Dritter sind als solche gekennzeichnet. Vervielfältigung, Bearbeitung,
+            Verbreitung und jede Art der Verwertung außerhalb der Grenzen des
+            Urheberrechts bedürfen der schriftlichen Zustimmung.
           </p>
         </section>
 
         <p className="hairline border-t pt-6 text-sm text-muted">
-          Hinweis: Dies ist ein Platzhalter-Impressum. Bitte vor dem Livegang
-          rechtssicher ausfüllen lassen.
+          Stand: Juni 2026
         </p>
       </div>
     </main>

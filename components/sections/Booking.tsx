@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { Reveal } from "@/components/ui/Reveal";
 import {
   IconClock,
@@ -528,8 +529,15 @@ export function Booking() {
                 )}
 
                 <p className="mt-4 text-center text-xs leading-relaxed text-muted">
-                  Mit dem Absenden stimmen Sie der Verarbeitung Ihrer Angaben zur
-                  Bearbeitung der Anfrage zu. Pflichtfelder sind mit
+                  Ihre Angaben verwenden wir ausschließlich, um Ihre Anfrage zu
+                  bearbeiten. Mehr dazu in unserer{" "}
+                  <Link
+                    href="/datenschutz"
+                    className="text-lavender-700 underline-offset-2 hover:underline"
+                  >
+                    Datenschutzerklärung
+                  </Link>
+                  . Pflichtfelder sind mit
                   <span className="text-[#a23b30]"> *</span> markiert.
                 </p>
               </form>
