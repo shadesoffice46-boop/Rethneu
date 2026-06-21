@@ -20,10 +20,7 @@ export function Faq() {
     <section id="faq" className="py-24 md:py-32">
       <div className="mx-auto max-w-3xl px-6">
         <Reveal className="text-center">
-          <span className="font-display text-base italic text-olive-700">
-            Häufige Fragen
-          </span>
-          <h2 className="mt-3 text-4xl md:text-5xl">Gut zu wissen</h2>
+          <h2 className="text-4xl md:text-5xl">Gut zu wissen</h2>
         </Reveal>
 
         <Reveal className="mt-12">

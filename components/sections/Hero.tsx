@@ -53,9 +53,7 @@ export function Hero() {
             className="mt-5 text-[2.6rem] leading-[1.05] sm:text-6xl lg:text-[3.6rem]"
           >
             Eine ruhige{" "}
-            <span className="font-display italic text-lavender-700">
-              Auszeit
-            </span>{" "}
+            <span className="font-display text-lavender-700">Auszeit</span>{" "}
             für Körper, Geist und Sinne.
           </motion.h1>
 

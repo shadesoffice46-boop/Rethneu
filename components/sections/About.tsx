@@ -21,10 +21,7 @@ export function About() {
 
         {/* Text */}
         <Reveal className="order-2" delay={0.1}>
-          <span className="font-display text-base italic text-olive-700">
-            Über uns
-          </span>
-          <h2 className="mt-3 text-4xl md:text-5xl">
+          <h2 className="text-4xl md:text-5xl">
             Ein Ort der Ruhe, mit Hingabe geführt
           </h2>
           <p className="mt-5 text-lg leading-relaxed text-muted">

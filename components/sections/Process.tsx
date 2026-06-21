@@ -10,10 +10,7 @@ export function Process() {
     <section id="ablauf" className="py-24 md:py-32">
       <div className="mx-auto max-w-6xl px-6">
         <Reveal className="max-w-2xl">
-          <span className="font-display text-base italic text-olive-700">
-            So funktioniert&apos;s
-          </span>
-          <h2 className="mt-3 text-4xl md:text-5xl">
+          <h2 className="text-4xl md:text-5xl">
             In vier Schritten zur Entspannung
           </h2>
         </Reveal>

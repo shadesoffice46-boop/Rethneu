@@ -1,24 +1,24 @@
 import type { Metadata } from "next";
-import { Fraunces, Inter } from "next/font/google";
+import { Marcellus, Hanken_Grotesk } from "next/font/google";
 import "./globals.css";
 import { studio } from "@/lib/data";
 
 /*
-  Schriften ueber next/font/google.
-  - Fraunces: eleganter, moderner Serif fuer Ueberschriften (inkl. Kursiv).
-  - Inter: ruhiger Sans fuer Fliesstext und UI.
-  Beide als Variable-Fonts ueber CSS-Variablen eingebunden (siehe globals.css @theme).
+  Schriften ueber next/font/google (self-hosted -> kein Google-Fonts-CDN, kein Cookie-Banner).
+  - Marcellus: schlanker, klassisch-eleganter Serif fuer Ueberschriften.
+  - Hanken Grotesk: warme, gut lesbare Grotesk fuer Fliesstext und UI.
+  Beide ueber CSS-Variablen eingebunden (siehe globals.css @theme).
 */
-const fraunces = Fraunces({
+const marcellus = Marcellus({
   subsets: ["latin"],
-  style: ["normal", "italic"],
-  variable: "--font-fraunces",
+  weight: "400",
+  variable: "--font-marcellus",
   display: "swap",
 });
 
-const inter = Inter({
+const hanken = Hanken_Grotesk({
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-hanken",
   display: "swap",
 });
 
@@ -68,7 +68,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="de" className={`${fraunces.variable} ${inter.variable}`}>
+    <html lang="de" className={`${marcellus.variable} ${hanken.variable}`}>
       <body>
         <a href="#main" className="skip-link">
           Zum Inhalt springen

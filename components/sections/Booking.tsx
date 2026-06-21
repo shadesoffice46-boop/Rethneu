@@ -181,10 +181,7 @@ export function Booking() {
       <div className="mx-auto grid max-w-6xl gap-12 px-6 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
         {/* Linke Spalte: Kontext + Kontaktdaten */}
         <Reveal>
-          <span className="font-display text-base italic text-olive-700">
-            Termin
-          </span>
-          <h2 className="mt-3 text-4xl md:text-5xl">Termin anfragen</h2>
+          <h2 className="text-4xl md:text-5xl">Termin anfragen</h2>
           <p className="mt-5 max-w-md text-lg leading-relaxed text-muted">
             Wählen Sie Behandlung, Dauer und Wunschzeit – wir bestätigen Ihren
             Termin verbindlich per E-Mail. Lieber sofort sehen, was frei ist?

@@ -8,13 +8,10 @@ import { testimonials } from "@/lib/data";
 */
 export function Testimonials() {
   return (
-    <section className="bg-lavender-50 py-24 md:py-32">
+    <section className="bg-olive-700 py-24 md:py-32">
       <div className="mx-auto max-w-6xl px-6">
         <Reveal className="max-w-2xl">
-          <span className="font-display text-base italic text-olive-700">
-            Stimmen
-          </span>
-          <h2 className="mt-3 text-4xl md:text-5xl">Was Gäste berichten</h2>
+          <h2 className="text-4xl text-cream md:text-5xl">Was Gäste berichten</h2>
         </Reveal>
 
         <div className="mt-14 grid grid-cols-1 gap-6 md:grid-cols-3">
@@ -29,7 +26,7 @@ export function Testimonials() {
                     <IconStar key={s} className="h-5 w-5" />
                   ))}
                 </div>
-                <blockquote className="mt-5 flex-1 font-display text-lg italic leading-relaxed text-ink">
+                <blockquote className="mt-5 flex-1 font-display text-lg leading-relaxed text-ink">
                   „{t.quote}“
                 </blockquote>
                 <figcaption className="mt-6 border-t border-ink/10 pt-4">
