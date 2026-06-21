@@ -13,7 +13,7 @@ export function Footer() {
 
   return (
     <footer className="bg-ink text-cream/85">
-      <div className="mx-auto max-w-6xl px-6 py-16">
+      <div className="w-full px-[clamp(1.25rem,4.5vw,4.5rem)] py-16">
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-[1.3fr_1fr_1fr_1fr]">
           {/* Marke */}
           <div>

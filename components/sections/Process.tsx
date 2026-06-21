@@ -8,7 +8,7 @@ import { processSteps } from "@/lib/data";
 export function Process() {
   return (
     <section id="ablauf" className="py-24 md:py-32">
-      <div className="mx-auto max-w-6xl px-6">
+      <div className="w-full px-[clamp(1.25rem,4.5vw,4.5rem)]">
         <Reveal className="max-w-2xl">
           <h2 className="text-4xl md:text-5xl">
             In vier Schritten zur Entspannung

@@ -178,7 +178,7 @@ export function Booking() {
 
   return (
     <section id="buchung" className="bg-[#fbe9f3] py-24 md:py-32">
-      <div className="mx-auto grid max-w-6xl gap-12 px-6 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
+      <div className="grid w-full gap-12 px-[clamp(1.25rem,4.5vw,4.5rem)] lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
         {/* Linke Spalte: Kontext + Kontaktdaten */}
         <Reveal>
           <h2 className="text-4xl md:text-5xl">Termin anfragen</h2>

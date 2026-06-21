@@ -11,7 +11,7 @@ export function TrustStrip() {
       aria-label="Studio auf einen Blick"
       className="border-y border-ink/10 bg-cream"
     >
-      <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-x-8 gap-y-2.5 px-6 py-4 text-sm text-muted">
+      <div className="flex w-full flex-wrap items-center justify-center gap-x-8 gap-y-2.5 px-[clamp(1.25rem,4.5vw,4.5rem)] py-4 text-sm text-muted">
         <span className="inline-flex items-center gap-2">
           <IconMapPin className="h-4 w-4 text-olive-700" />
           {studio.address.street}, {studio.address.city}

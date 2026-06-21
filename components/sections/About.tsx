@@ -6,7 +6,7 @@ import { values } from "@/lib/data";
 export function About() {
   return (
     <section id="ueber-uns" className="bg-[#fcf3f8] py-24 md:py-32">
-      <div className="mx-auto grid max-w-6xl items-center gap-14 px-6 lg:grid-cols-2 lg:gap-16">
+      <div className="grid w-full items-center gap-14 px-[clamp(1.25rem,4.5vw,4.5rem)] lg:grid-cols-2 lg:gap-16">
         {/* Bild */}
         <Reveal className="order-1">
           <div className="relative">

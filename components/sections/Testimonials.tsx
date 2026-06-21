@@ -9,7 +9,7 @@ import { testimonials } from "@/lib/data";
 export function Testimonials() {
   return (
     <section className="bg-olive-700 py-24 md:py-32">
-      <div className="mx-auto max-w-6xl px-6">
+      <div className="w-full px-[clamp(1.25rem,4.5vw,4.5rem)]">
         <Reveal className="max-w-2xl">
           <h2 className="text-4xl text-cream md:text-5xl">Was Gäste berichten</h2>
         </Reveal>

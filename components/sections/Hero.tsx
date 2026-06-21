@@ -37,7 +37,7 @@ export function Hero() {
         className="pointer-events-none absolute -top-24 right-[-10%] h-[34rem] w-[34rem] rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.85),transparent_65%)]"
       />
 
-      <div className="relative mx-auto grid w-full max-w-6xl items-center gap-10 px-6 lg:grid-cols-[0.82fr_1.18fr]">
+      <div className="relative grid w-full items-center gap-10 px-[clamp(1.25rem,4.5vw,4.5rem)] lg:grid-cols-[0.82fr_1.18fr]">
         {/* Text */}
         <motion.div variants={container} initial="hidden" animate="show">
           <motion.span

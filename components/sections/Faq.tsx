@@ -18,13 +18,13 @@ export function Faq() {
 
   return (
     <section id="faq" className="py-24 md:py-32">
-      <div className="mx-auto max-w-3xl px-6">
+      <div className="w-full px-[clamp(1.25rem,4.5vw,4.5rem)]">
         <Reveal className="text-center">
           <h2 className="text-4xl md:text-5xl">Gut zu wissen</h2>
         </Reveal>
 
         <Reveal className="mt-12">
-          <ul className="border-t border-ink/10">
+          <ul className="grid border-t border-ink/10 lg:grid-cols-2 lg:gap-x-14">
             {faqs.map((faq, i) => {
               const open = openIndex === i;
               const btnId = `${baseId}-btn-${i}`;

@@ -43,7 +43,7 @@ export function Header() {
       }`}
     >
       <div
-        className={`mx-auto flex max-w-6xl items-center justify-between px-6 transition-all duration-300 ${
+        className={`flex w-full items-center justify-between px-[clamp(1.25rem,4.5vw,4.5rem)] transition-all duration-300 ${
           scrolled ? "py-3" : "py-5"
         }`}
       >
@@ -105,7 +105,7 @@ export function Header() {
             transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
             className="overflow-hidden border-t border-ink/10 bg-cream/95 backdrop-blur-md md:hidden"
           >
-            <div className="mx-auto flex max-w-6xl flex-col gap-1 px-6 py-4">
+            <div className="flex w-full flex-col gap-1 px-[clamp(1.25rem,4.5vw,4.5rem)] py-4">
               {navLinks.map((link) => (
                 <Link
                   key={link.href}
