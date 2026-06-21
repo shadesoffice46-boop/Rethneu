@@ -25,7 +25,7 @@
   /* --- Neutral --- */
   --color-cream: #fbfaf6; /* warmes Off-White fuer grosse Flaechen */
   --color-ink: #2b2a28; /* Haupttext */
-  --color-muted: #6e6c66; /* Sekundaertext (>= 4.5:1 auf Cream) */
+  --color-muted: #4a1e47; /* Sekundaertext, Tieflila (Claude-Design-Stand) */
 
   /* --- Schrift --- */
   --font-display: var(--font-fraunces), "Iowan Old Style", Georgia, serif;
@@ -131,5 +131,94 @@
   }
   .skip-link:focus {
     transform: translateY(0);
+  }
+}
+
+/*
+  Liquid-Glass-Designsystem (Claude-Design-Stand, 1:1 aus der Design-Canvas).
+  Der SVG-Filter #container-glass wird in app/layout.tsx eingebunden.
+*/
+.glass-btn {
+  position: relative;
+  isolation: isolate;
+  border-radius: 999px;
+  background: rgba(214, 53, 127, 0.06); /* zarter Rosa-Glas-Ton */
+  color: #aa077c;
+  -webkit-backdrop-filter: url('#container-glass');
+  backdrop-filter: url('#container-glass');
+  transition: transform 0.3s ease, background-color 0.3s ease,
+    box-shadow 0.3s ease, color 0.25s ease;
+}
+.glass-btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  z-index: 0;
+  pointer-events: none;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.02), 0 2px 5px rgba(0, 0, 0, 0.05),
+    inset 2px 2px 0.5px -3px rgba(0, 0, 0, 0.4),
+    inset -2px -2px 0.5px -3px rgba(0, 0, 0, 0.35),
+    inset 1px 1px 1px -0.5px rgba(0, 0, 0, 0.25),
+    inset -1px -1px 1px -0.5px rgba(0, 0, 0, 0.25),
+    inset 0 0 5px 4px rgba(0, 0, 0, 0.045),
+    inset 0 0 2px 2px rgba(0, 0, 0, 0.025), 0 0 12px rgba(255, 255, 255, 0.18);
+  transition: box-shadow 0.3s ease;
+}
+.glass-btn > span {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.glass-btn:hover {
+  transform: scale(1.05);
+  background: rgba(214, 53, 127, 0.13);
+  box-shadow: 0 8px 22px -8px rgba(214, 53, 127, 0.45);
+}
+.glass-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+/* Fallback ohne backdrop-filter: lesbarer, halbtransparenter Hintergrund */
+@supports not (
+  (backdrop-filter: url('#x')) or (-webkit-backdrop-filter: url('#x'))
+) {
+  .glass-btn {
+    background: rgba(255, 255, 255, 0.6);
+  }
+}
+
+/* Glas-Pill-Navigation (Header) */
+.nav-link {
+  position: relative;
+  isolation: isolate;
+  border-radius: 999px;
+  padding: 5px 14px;
+  transition: color 0.25s ease, background-color 0.25s ease;
+}
+.nav-link:hover {
+  color: #aa077c;
+  background: rgba(214, 53, 127, 0.06);
+}
+.tel-link {
+  transition: color 0.25s ease;
+}
+.tel-link:hover,
+.tel-link:hover svg {
+  color: #d6357f;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glass-btn {
+    transition: background-color 0.25s ease, color 0.25s ease,
+      box-shadow 0.25s ease;
+  }
+  .glass-btn:hover {
+    transform: none;
   }
 }

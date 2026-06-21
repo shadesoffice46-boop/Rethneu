@@ -67,11 +67,7 @@ export function Treatments() {
 
                 <BookButton
                   calSlug={t.calSlug}
-                  className={`mt-4 inline-flex w-full items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium tracking-wide transition-all duration-300 ease-out focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lavender-700 ${
-                    t.featured
-                      ? "bg-lavender-700 text-white hover:bg-[#87045f]"
-                      : "border border-olive-500/45 text-olive-700 hover:bg-olive-100 hover:border-olive-500/70"
-                  }`}
+                  className="glass-btn mt-5 inline-flex w-full items-center justify-center rounded-full px-5 py-3 text-sm font-semibold tracking-wide"
                 >
                   Termin buchen
                 </BookButton>

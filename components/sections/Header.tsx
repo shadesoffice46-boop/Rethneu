@@ -49,23 +49,26 @@ export function Header() {
       >
         <Logo />
 
-        {/* Desktop-Navigation */}
+        {/* Desktop-Navigation (Glas-Pill, Claude-Design-Stand) */}
         <nav
           aria-label="Hauptnavigation"
-          className="hidden items-center gap-8 md:flex"
+          className="hidden items-center gap-1 rounded-full border border-ink/40 bg-white px-1.5 py-1 shadow-soft md:flex"
         >
           {navLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              className="text-sm font-medium text-ink/75 transition-colors duration-200 hover:text-lavender-700"
+              className="nav-link whitespace-nowrap text-sm font-medium text-ink/75"
             >
               {link.label}
             </Link>
           ))}
-          <Button href="#buchung" className="!px-5 !py-2.5">
-            Termin buchen
-          </Button>
+          <Link
+            href="#buchung"
+            className="nav-link whitespace-nowrap text-sm font-medium text-ink/75"
+          >
+            Kontakt
+          </Link>
         </nav>
 
         {/* Mobiler Umschalter */}

@@ -50,7 +50,7 @@ export function BookButton({ calSlug, children, className }: BookButtonProps) {
       onClick={warmUpCalEmbed}
       className={className}
     >
-      {children}
+      <span>{children}</span>
     </button>
   );
 }

@@ -177,7 +177,7 @@ export function Booking() {
   }
 
   return (
-    <section id="buchung" className="bg-lavender-100/60 py-24 md:py-32">
+    <section id="buchung" className="bg-[#fbe9f3] py-24 md:py-32">
       <div className="mx-auto grid max-w-6xl gap-12 px-6 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
         {/* Linke Spalte: Kontext + Kontaktdaten */}
         <Reveal>
@@ -507,16 +507,18 @@ export function Booking() {
                 <button
                   type="submit"
                   disabled={status === "submitting"}
-                  className="mt-7 inline-flex w-full items-center justify-center gap-2 rounded-full bg-lavender-700 px-6 py-3.5 text-sm font-medium tracking-wide text-white shadow-soft transition-all duration-300 ease-out hover:bg-[#4d3b6e] disabled:cursor-not-allowed disabled:opacity-70"
+                  className="glass-btn mt-7 inline-flex w-full items-center justify-center rounded-full px-6 py-3.5 text-sm font-semibold tracking-wide disabled:cursor-not-allowed"
                 >
-                  {status === "submitting" ? (
-                    <>
-                      <Spinner />
-                      Wird gesendet …
-                    </>
-                  ) : (
-                    "Anfrage senden"
-                  )}
+                  <span>
+                    {status === "submitting" ? (
+                      <>
+                        <Spinner />
+                        Wird gesendet …
+                      </>
+                    ) : (
+                      "Anfrage senden"
+                    )}
+                  </span>
                 </button>
 
                 {submitError && (
