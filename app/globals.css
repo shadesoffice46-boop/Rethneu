@@ -9,12 +9,12 @@
 */
 @theme {
   /* --- Lila / Lavendel --- */
-  --color-lavender-50: #f6f2fb; /* hellster Hintergrund-Tint */
-  --color-lavender-100: #ece3f6;
-  --color-lavender-200: #d9c9ec;
-  --color-lavender-300: #c2abdf; /* helles Lila, heller Akzent */
-  --color-lavender-500: #8b73b5; /* Lila, Brand */
-  --color-lavender-700: #5e4a85; /* dunkles Lila, Hover / Akzenttext / Buttons */
+  --color-lavender-50: #fdf1f9; /* hellster Hintergrund-Tint (Pink) */
+  --color-lavender-100: #fbe2f1;
+  --color-lavender-200: #f3c5de;
+  --color-lavender-300: #e79cc8; /* helles Pink, heller Akzent */
+  --color-lavender-500: #cd4fa0; /* Pink, Brand */
+  --color-lavender-700: #aa077c; /* dunkles Pink, Hover / Akzenttext / Buttons */
 
   /* --- Olivgruen --- */
   --color-olive-100: #edefe2;

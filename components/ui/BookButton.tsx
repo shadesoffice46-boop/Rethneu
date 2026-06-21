@@ -32,7 +32,7 @@ export function BookButton({ calSlug, children, className }: BookButtonProps) {
       const cal = await getCalApi();
       cal("ui", {
         theme: "light",
-        styles: { branding: { brandColor: "#5E4A85" } },
+        styles: { branding: { brandColor: "#AA077C" } },
         hideEventTypeDetails: false,
         layout: "month_view",
       });

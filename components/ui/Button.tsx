@@ -6,7 +6,7 @@ type Variant = "primary" | "secondary";
 const variants: Record<Variant, string> = {
   // Primaer: volles, dunkles Lila mit weißem Text (Kontrast > 7:1).
   primary:
-    "bg-lavender-700 text-white shadow-soft hover:bg-[#4d3b6e] hover:-translate-y-0.5 hover:shadow-lift",
+    "bg-lavender-700 text-white shadow-soft hover:bg-[#87045f] hover:-translate-y-0.5 hover:shadow-lift",
   // Sekundaer: ruhiger Olive-Umriss, fuellt sich beim Hover sanft.
   secondary:
     "border border-olive-500/45 text-olive-700 hover:bg-olive-100 hover:border-olive-500/70 hover:-translate-y-0.5",
