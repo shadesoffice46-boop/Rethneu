@@ -21,9 +21,7 @@ export function About() {
 
         {/* Text */}
         <Reveal className="order-2" delay={0.1}>
-          <h2 className="text-4xl md:text-5xl">
-            Ein Ort der Ruhe, mit Hingabe geführt
-          </h2>
+          <h2 className="heading-lg">Ein Ort der Ruhe, mit Hingabe geführt</h2>
           <p className="mt-5 text-lg leading-relaxed text-muted">
             Bei Reth Thaimassage &amp; Kosmetik verbinden wir traditionelle
             Thai-Techniken mit moderner Kosmetik. Wir glauben daran, dass echte

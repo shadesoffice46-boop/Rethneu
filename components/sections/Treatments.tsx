@@ -13,9 +13,7 @@ export function Treatments() {
     <section id="behandlungen" className="py-24 md:py-32">
       <div className="w-full px-[clamp(1.25rem,4.5vw,4.5rem)]">
         <Reveal className="max-w-2xl">
-          <h2 className="text-4xl md:text-5xl">
-            Anwendungen, die spürbar guttun
-          </h2>
+          <h2 className="heading-lg">Anwendungen, die spürbar guttun</h2>
           <p className="mt-5 text-lg leading-relaxed text-muted">
             Von kraftvoller Thai-Massage bis zu sanfter Gesichtspflege. Jede
             Behandlung nehmen wir uns in Ruhe vor, abgestimmt auf das, was Ihr

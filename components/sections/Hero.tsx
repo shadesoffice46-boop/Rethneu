@@ -29,7 +29,7 @@ export function Hero() {
   return (
     <section
       id="top"
-      className="relative flex min-h-screen flex-col justify-center overflow-hidden bg-white pt-24 pb-12 md:pt-28"
+      className="relative flex min-h-svh flex-col justify-center overflow-hidden bg-white pt-24 pb-12 md:pt-28"
     >
       {/* Sehr dezenter Lichtschein im Hintergrund */}
       <div
@@ -50,7 +50,7 @@ export function Hero() {
 
           <motion.h1
             variants={item}
-            className="mt-5 text-[2.6rem] leading-[1.05] sm:text-6xl lg:text-[3.6rem]"
+            className="mt-5 heading-xl leading-[1.05]"
           >
             Eine ruhige{" "}
             <span className="font-display text-lavender-700">Auszeit</span>{" "}

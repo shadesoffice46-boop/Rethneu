@@ -20,7 +20,7 @@ export function Faq() {
     <section id="faq" className="py-24 md:py-32">
       <div className="w-full px-[clamp(1.25rem,4.5vw,4.5rem)]">
         <Reveal className="text-center">
-          <h2 className="text-4xl md:text-5xl">Gut zu wissen</h2>
+          <h2 className="heading-lg">Gut zu wissen</h2>
         </Reveal>
 
         <Reveal className="mt-12">

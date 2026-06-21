@@ -10,9 +10,7 @@ export function Process() {
     <section id="ablauf" className="py-24 md:py-32">
       <div className="w-full px-[clamp(1.25rem,4.5vw,4.5rem)]">
         <Reveal className="max-w-2xl">
-          <h2 className="text-4xl md:text-5xl">
-            In vier Schritten zur Entspannung
-          </h2>
+          <h2 className="heading-lg">In vier Schritten zur Entspannung</h2>
         </Reveal>
 
         <ol className="mt-14 grid grid-cols-1 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-x-8">

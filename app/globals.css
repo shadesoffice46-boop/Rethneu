@@ -222,3 +222,14 @@
     transform: none;
   }
 }
+
+/*
+  Fluide Heading-Skala: waechst auf breiten Screens, schrumpft sauber beim
+  Verschmaelern des Fensters. Zeilenhoehe kommt aus der h1/h2-Basisregel.
+*/
+.heading-xl {
+  font-size: clamp(2.5rem, 1.2rem + 3vw, 4rem);
+}
+.heading-lg {
+  font-size: clamp(1.875rem, 1rem + 2.4vw, 3.125rem);
+}

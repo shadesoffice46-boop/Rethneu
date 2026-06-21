@@ -11,7 +11,7 @@ export function Testimonials() {
     <section className="bg-olive-700 py-24 md:py-32">
       <div className="w-full px-[clamp(1.25rem,4.5vw,4.5rem)]">
         <Reveal className="max-w-2xl">
-          <h2 className="text-4xl text-cream md:text-5xl">Was Gäste berichten</h2>
+          <h2 className="heading-lg text-cream">Was Gäste berichten</h2>
         </Reveal>
 
         <div className="mt-14 grid grid-cols-1 gap-6 md:grid-cols-3">
