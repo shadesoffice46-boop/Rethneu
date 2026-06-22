@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { Button } from "@/components/ui/Button";
 import { IconLeaf, IconPhone } from "@/components/ui/icons";
@@ -7,6 +8,24 @@ import { studio } from "@/lib/data";
 
 export function Hero() {
   const reduce = useReducedMotion();
+
+  // Beide Hero-Videos zuverlaessig durchlaufen lassen (nahtloser Loop):
+  // Loop + Play erzwingen und nach Tab-Wechsel/Stall wieder anstossen.
+  useEffect(() => {
+    const vids = Array.from(
+      document.querySelectorAll<HTMLVideoElement>("#top video"),
+    );
+    const ensure = () => {
+      vids.forEach((v) => {
+        v.loop = true;
+        v.muted = true;
+        if (v.paused) v.play().catch(() => {});
+      });
+    };
+    ensure();
+    document.addEventListener("visibilitychange", ensure);
+    return () => document.removeEventListener("visibilitychange", ensure);
+  }, []);
 
   // Eltern-/Kind-Varianten fuer einen ruhigen, gestaffelten Bildaufbau.
   const container = {
@@ -29,15 +48,28 @@ export function Hero() {
   return (
     <section
       id="top"
-      className="relative flex min-h-svh flex-col justify-center overflow-hidden bg-white pt-24 pb-12 md:pt-28"
+      className="relative isolate flex min-h-svh flex-col justify-center overflow-hidden bg-white pt-24 pb-12 md:pt-28"
     >
+      {/* Hintergrund-Loop: zarte Blaetter (oben/links), Weisston per Helligkeit an die Seite angeglichen */}
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        preload="auto"
+        aria-hidden
+        className="pointer-events-none absolute inset-0 z-0 h-full w-full object-cover object-left-top opacity-[0.7] [filter:brightness(1.09)]"
+      >
+        <source src="/hero-bg.mp4" type="video/mp4" />
+      </video>
+
       {/* Sehr dezenter Lichtschein im Hintergrund */}
       <div
         aria-hidden
         className="pointer-events-none absolute -top-24 right-[-10%] h-[34rem] w-[34rem] rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.85),transparent_65%)]"
       />
 
-      <div className="relative grid w-full items-center gap-10 px-[clamp(1.25rem,4.5vw,4.5rem)] lg:grid-cols-[0.82fr_1.18fr]">
+      <div className="relative z-10 grid w-full items-center gap-10 px-[clamp(1.25rem,4.5vw,4.5rem)] lg:grid-cols-[0.82fr_1.18fr]">
         {/* Text */}
         <motion.div variants={container} initial="hidden" animate="show">
           <motion.span

@@ -193,17 +193,35 @@
   }
 }
 
-/* Glas-Pill-Navigation (Header) */
+/* Glas-Pill-Navigation (Header): Glasoptik NUR beim Hover, sonst unveraendert */
 .nav-link {
   position: relative;
   isolation: isolate;
   border-radius: 999px;
   padding: 5px 14px;
-  transition: color 0.25s ease, background-color 0.25s ease;
+  transition: color 0.25s ease, background-color 0.25s ease,
+    box-shadow 0.3s ease, backdrop-filter 0.3s ease;
 }
 .nav-link:hover {
   color: #aa077c;
   background: rgba(214, 53, 127, 0.06);
+  -webkit-backdrop-filter: url('#container-glass');
+  backdrop-filter: url('#container-glass');
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.02), 0 2px 5px rgba(0, 0, 0, 0.05),
+    inset 2px 2px 0.5px -3px rgba(0, 0, 0, 0.4),
+    inset -2px -2px 0.5px -3px rgba(0, 0, 0, 0.35),
+    inset 1px 1px 1px -0.5px rgba(0, 0, 0, 0.25),
+    inset -1px -1px 1px -0.5px rgba(0, 0, 0, 0.25),
+    inset 0 0 5px 4px rgba(0, 0, 0, 0.045),
+    inset 0 0 2px 2px rgba(0, 0, 0, 0.025), 0 0 12px rgba(255, 255, 255, 0.18);
+}
+/* Fallback ohne backdrop-filter: lesbarer halbtransparenter Hover-Hintergrund */
+@supports not (
+  (backdrop-filter: url('#x')) or (-webkit-backdrop-filter: url('#x'))
+) {
+  .nav-link:hover {
+    background: rgba(255, 255, 255, 0.6);
+  }
 }
 .tel-link {
   transition: color 0.25s ease;

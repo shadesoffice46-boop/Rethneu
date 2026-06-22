@@ -25,20 +25,10 @@ export function Treatments() {
           {treatments.map((t, i) => (
             <Reveal key={t.slug} delay={i * 0.06}>
               <article
-                className={`group flex h-full flex-col rounded-2xl p-7 transition-all duration-300 hover:-translate-y-1 ${
-                  t.featured
-                    ? "bg-lavender-50 ring-1 ring-lavender-300/70 hover:shadow-lift"
-                    : "border border-ink/10 bg-white hover:border-lavender-300/70 hover:shadow-soft"
-                }`}
+                className="group flex h-full flex-col rounded-2xl border border-ink/10 bg-white p-7 transition-all duration-300 hover:-translate-y-1 hover:border-lavender-300/70 hover:shadow-soft"
               >
                 <div className="flex items-center justify-between">
-                  <span
-                    className={`grid h-12 w-12 place-items-center rounded-xl ${
-                      t.featured
-                        ? "bg-lavender-700 text-white"
-                        : "bg-olive-100 text-olive-700"
-                    }`}
-                  >
+                  <span className="grid h-12 w-12 place-items-center rounded-xl bg-lavender-700 text-white">
                     <TreatmentIcon name={t.icon} className="h-6 w-6" />
                   </span>
                   {t.featured && (
